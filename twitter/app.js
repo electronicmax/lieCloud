@@ -1,9 +1,11 @@
 /* jshint undef: true, strict:false, trailing:false, unused:false, quotmark:false */
 /* global require, exports, console, process, module, L, angular, _, jQuery, FastClick, device, document, window, setTimeout, $, Keyboard, Backbone */
 
-var express = require('express');
+var express = require('express'),
+  url = require('url');
 var Flutter = require('flutter');
 var session = require('express-session'),
+    _ = require('underscore'),
     redis = require("redis"),
     client = redis.createClient(),
     bluebird = require('bluebird'),
@@ -51,14 +53,13 @@ app.use(session({secret:'keyboard cat'}));
 app.get('/twitter/connect', flutter.connect);
 app.get('/twitter/callback', flutter.auth);
 app.get('/done', function(req, res) { 
-  res.send('by jove! oaRT::' + req.session.oauthRequestToken + 
-      ' oaRS::' + req.session.oauthRequestTokenSecret + 
-      ' oaAT::' + req.session.oauthAccessToken + 
-      ' oaATs::' +  req.session.oauthAccessTokenSecret
-  );
+  res.send(JSON.stringify({
+      oauthRequestToken: req.session.oauthRequestToken,
+      oauthRequestTokenSecret: req.session.oauthRequestTokenSecret,
+      oauthAccessToken: req.session.oauthAccessToken,
+      oauthAccessTokenSecret: req.session.oauthAccessTokenSecret
+  }));
 });
-
-
 var getClient = function() { 
   return Promise.all([rget('oauthAccessToken'), rget('oauthAccessTokenSecret')]).then(function(values) { 
     var accessToken = values[0], secret = values[1];
@@ -71,6 +72,22 @@ var getClient = function() {
     throw new Error("oops");
   });
 };
+
+app.get('/twitter/call', function(req,res) {
+  var path = req.query.path,
+    params = _(req.query).omit('path');
+  console.log('calling ', path, ' - params ', params);
+  getClient().then(function(t)  {
+     t.get(path, params, function(error, tweets, response){      
+        if(error) { 
+          console.log('error!', error); 
+          res.send(JSON.stringify({error:true, message:error && error.message || error && error[0] && error[0].message}));
+          return;
+        }
+        res.send(tweets);
+    });  
+  });
+});
 
 app.get('/twitter/dms', function(req,res) {
   getClient().then(function(t)  {
@@ -89,10 +106,7 @@ app.get('/twitter/dms', function(req,res) {
   });
 });
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
-
+app.get('/', function (req, res) { res.send('Hello World!'); });
 app.use(express.static('www'));
 
 var server = app.listen(3000, function () {
