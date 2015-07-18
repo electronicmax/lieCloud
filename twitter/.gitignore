@@ -30,3 +30,4 @@ apps/*/project/plugins/*
 apps/*/www
 pinch-medical.com/www/lib
 build/
+www/lib
