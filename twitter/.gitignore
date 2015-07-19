@@ -31,3 +31,4 @@ apps/*/www
 pinch-medical.com/www/lib
 build/
 www/lib
+config.js

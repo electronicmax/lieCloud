@@ -9,9 +9,9 @@ var express = require('express'),
 	_ = require('underscore'),
 	redis = require("redis"),
 	client = redis.createClient(),
+	bodyparser = require('body-parser'),
 	bluebird = require('bluebird'),
 	rget = function(tokenkey, key) { 
-
 		return new Promise(function(accept, reject) {
 			client.get(tokenkey, function(err, res) {
 				if (res !== null) { 
@@ -27,8 +27,9 @@ var express = require('express'),
 			});
 		});
 	},
-	consumerKey = 'VV6ZRqrHqezOxl0xbOuo2ytZE',
-	consumerSecret = 'hc6nbiaotdnvK3isC04EQLAeAAKLtelSn0uz03RqhzaLRBl2SJ',
+	config = JSON.parse(require('fs').readFileSync('./config.js')),
+	consumerKey = config.consumerKey,
+	consumerSecret = config.consumerSecret,
 	twitter = require('twitter'),
 	flutter = new Flutter({
 		consumerKey: consumerKey,
@@ -55,8 +56,10 @@ var express = require('express'),
 		}
 	});
 
+console.log('consumer key ', consumerKey, ' consumerSecret > ', consumerSecret );
 var app = express();
 app.use(session({secret:'keyboard cat'}));
+app.use(bodyparser.json());       // to support JSON-encoded bodies
 app.get('/twitter/connect', flutter.connect);
 app.get('/twitter/callback', flutter.auth);
 
@@ -90,6 +93,32 @@ app.get('/twitter/call', function(req,res) {
 		});  
 	});
 });
+
+// gateways to redis
+app.post('/set', function(req,res) {
+	console.log('req req body ', req);
+	var id = req.body.id,
+		data = req.body.data;
+	console.log('setting id');
+	if (id && data) { 
+		client.set(id,JSON.stringify(data),console.log);
+	}
+});
+app.get('/get', function(req,res) {
+	var id = req.query.id;
+	if (id) { 
+		console.log('querying for id ', id);
+		return client.get(id, function(err ,result) { 
+			console.log('result ', result);
+			if (err) { 
+				return res.status(500).send(err);
+			}
+			return res.send(result);
+		});
+	}
+	res.status(409).send('no params');
+});
+
 app.get('/', function (req, res) { res.send('Hello World!'); });
 app.use(express.static('www'));
 
