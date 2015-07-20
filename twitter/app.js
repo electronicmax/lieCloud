@@ -69,7 +69,7 @@ var getClient = function(tokenkey) {
 		console.log('aT ', accessToken, ' secret ', secret);
 		if (accessToken && secret) { 
 			return new twitter({ 
-				consumer_key: consumerKey, consumer_secret: consumerSecret, 
+				consumer_key: consumerKey, consumer_secret: consumerSecret,
 				access_token_key: accessToken, access_token_secret: secret 
 			});
 		}
