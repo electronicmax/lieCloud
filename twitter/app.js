@@ -59,7 +59,7 @@ var express = require('express'),
 console.log('consumer key ', consumerKey, ' consumerSecret > ', consumerSecret );
 var app = express();
 app.use(session({secret:'keyboard cat'}));
-app.use(bodyparser.json());       // to support JSON-encoded bodies
+app.use(bodyparser.json({limit: '100mb'}));       // to support JSON-encoded bodies
 app.get('/twitter/connect', flutter.connect);
 app.get('/twitter/callback', flutter.auth);
 
@@ -77,29 +77,43 @@ var getClient = function(tokenkey) {
 	});
 };
 
+var _nonces = {};
+
+var send_resp = function(nonce, res, data) {
+	if (!_nonces[nonce]) { 
+		_nonces[nonce] = true;		
+		res.send(data);
+		return;
+	}
+	console.error('attempted to send response twice ', nonce);
+};
+
 app.get('/twitter/call', function(req,res) {
 	var path = req.query.path,
 		tokenkey = req.query.tokenkey,
-		params = _(req.query).omit('path', 'tokenkey');
+		params = _(req.query).omit('path', 'tokenkey'),
+		nonce = guid.create();
+
+	if (params.count) { params.count = parseInt(params.count); }
 
 	getClient(tokenkey).then(function(t)  {
-		 t.get(path, params, function(error, tweets, response){      
-				if(error) { 
-					console.log('error!', error); 
-					res.send(JSON.stringify({error:true, message:error && error.message || error && error[0] && error[0].message}));
-					return;
-				}
-				res.send(tweets);
+		t.get(path, params, function(error, tweets, response){      
+			if(error) { 
+				console.log('error!', error); 
+				send_resp(nonce, res, JSON.stringify({error:true, message:error && error.message || error && error[0] && error[0].message}));
+				return;
+			}  else {
+				send_resp(nonce, res, tweets);
+			}
 		});  
 	});
 });
 
 // gateways to redis
 app.post('/set', function(req,res) {
-	console.log('req req body ', req);
 	var id = req.body.id,
 		data = req.body.data;
-	console.log('setting id');
+	console.log('setting id', id);
 	if (id && data) { 
 		client.set(id,JSON.stringify(data),console.log);
 	}
@@ -109,11 +123,11 @@ app.get('/get', function(req,res) {
 	if (id) { 
 		console.log('querying for id ', id);
 		return client.get(id, function(err ,result) { 
-			console.log('result ', result);
+			console.log('sending result ', result && result.length);
 			if (err) { 
 				return res.status(500).send(err);
 			}
-			return res.send(result);
+			return res.send(result || '[]');
 		});
 	}
 	res.status(409).send('no params');
