@@ -65,7 +65,26 @@ angular.module('lie', ['lifecourse'])
 		};
 
 
-		var respects = $scope.respects = {};
+		var respects = $scope.respects = {},
+			// tbyday = {},
+			tminmax = {},
+			tpds = $scope.tpds = {};
+
+		// var update_tpds = function(scr_id, tweet) { 
+		// 	tbyday[scr_id] = (tbyday[scr_id] || {});
+		// 	var datestr = new Date(tweet.created_at).toDateString();
+		// 	tbyday[scr_id][datestr] = (tbyday[scr_id][datestr] || []);
+		// 	tbyday[scr_id][datestr].push(tweet);
+		// };
+		var update_tpds = function(scr_id, tweet) { 
+			var tweet_date = new Date(tweet.created_at).valueOf(),
+				minmax = { 
+					min: Math.min(tminmax[scr_id] && tminmax[scr_id].min || tweet_date, tweet_date),
+					max : Math.max(tminmax[scr_id] && tminmax[scr_id].max || tweet_date, tweet_date)
+				};
+			tminmax[scr_id] = minmax;
+		};
+
 		var process = function(screen_name, results, incr_val) { 
 			console.log('processing results ', screen_name, results.length);
 			respects[screen_name] = {};
@@ -82,13 +101,22 @@ angular.module('lie', ['lifecourse'])
 				} else if (!x.retweeted) {
 					// when person x mentions y, take those into account
 					if (x.entities === undefined) { console.error('no entities ', x); }
-					x.entities && x.entities.user_mentions.map(function(mention) {
-						incr(respects[screen_name], mention.screen_name, incr_val);
-					});
+					else if (x.entities) { 
+						x.entities.user_mentions.map(function(mention) {
+							incr(respects[screen_name], mention.screen_name, incr_val);
+						});
+					}
 				}
+				update_tpds(screen_name, x);
 			}); 
 			sa(function() { $scope.byfriend = respects[screen_name];	});
 			server.set('respects-'+screen_name, JSON.stringify(respects[screen_name]));
+			console.log(' ', screen_name, '  -> msec', (tminmax[screen_name].max - tminmax[screen_name].min), 'days: ', (tminmax[screen_name].max - tminmax[screen_name].min)/(24.0*60*60*1000));
+			$scope.tpds[screen_name] = results.length / Math.max( (tminmax[screen_name].max - tminmax[screen_name].min)/(24.0*60*60*1000), 1 );
+			// $scope.tpds[screen_name] = _(tbyday[screen_name]).values().map(function(x) { 
+			// 	return x.length; 
+			// }).reduce(function(x,y) { return x+y; },0)/(1.0*_(tbyday[screen_name]).keys().length);
+			server.set('tpds-'+screen_name, $scope.tpds[screen_name]);
 			return results;	
 		};
 
@@ -135,7 +163,7 @@ angular.module('lie', ['lifecourse'])
 			var my_screen_name = results.screen_name;
 			var processes = [
 				grab_user_timeline(my_screen_name).then(function(results) { 
-					console.log('total results ', results.length);
+					// console.log('total results ', results.length);
 					return process(my_screen_name, results);
 				})
 			];
@@ -152,7 +180,7 @@ angular.module('lie', ['lifecourse'])
 							});
 						};
 					});
-				console.log('fns ', fns);
+				// console.log('fns ', fns);
 				fns.reduce(function(fn, next) {	return fn.then(next); }, Promise.resolve()); 
 			});			
 		});

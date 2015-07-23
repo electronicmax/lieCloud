@@ -117,6 +117,7 @@ app.post('/set', function(req,res) {
 	if (id && data) { 
 		client.set(id,JSON.stringify(data),console.log);
 	}
+	res.send('ok');
 });
 app.get('/get', function(req,res) {
 	var id = req.query.id;

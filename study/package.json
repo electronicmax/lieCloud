@@ -1,0 +1,24 @@
+{
+  "name": "lietwitter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "bluebird": "^2.9.34",
+    "body-parser": "^1.13.2",
+    "express": "^4.13.1",
+    "express-session": "^1.11.3",
+    "flutter": "^0.0.2",
+    "mongojs": "^1.0.2",
+    "redis": "^0.12.1",
+    "twitter": "^1.2.5",
+    "underscore": "^1.8.3",
+    "url": "^0.10.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

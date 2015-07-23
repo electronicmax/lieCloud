@@ -21,11 +21,19 @@
             <div class="count" ng-bind="results.length"></div>
             <textarea ng-model='resultsJSON'></textarea>
         </div>
-        <div class="">
-            <ol>
-                <li ng-repeat='(k,v) in byfriend'>{{ k }} - {{ v }}</li>
-            </ol>
+        <div class="row">
+            <div class="col-xs-4">
+                <ol>
+                    <li ng-repeat='(k,v) in byfriend'>{{ k }} - {{ v }}</li>
+                </ol>
+            </div>
+            <div class="col-xs-4">
+                <ol>
+                    <li ng-repeat='(k,v) in tpds'>{{ k }} - {{ v }}</li>
+                </ol>
+            </div>
         </div>
+        
         <script src="lib/angular/angular.js" type="text/javascript"></script>
         <script src="lib/angular-ui-router/release/angular-ui-router.min.js" type="text/javascript"></script>
         <script src="lib/angular-animate/angular-animate.min.js" type="text/javascript"></script>

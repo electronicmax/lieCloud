@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="lib/angular-ui/build/angular-ui.css" rel="stylesheet">
+        <link href="css/lie.less" rel="stylesheet/less">
+        <script src="lib/less/dist/less.js" type="text/javascript"></script>  
+        <script src="lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <script src="lib/underscore/underscore.js" type="text/javascript"></script>
+        <script src="lib/backbone/backbone.js" type="text/javascript"></script>
+        <title>lie tweets</title>
+    </head>
+    <body ng-app="lie" ng-controller="main">
+        <div>
+            <input ng-model='method' type="text">
+            <input ng-model='params' type="text">
+            <div class='btn btn-default' ng-click="call()">call</div>
+            <div class="count" ng-bind="results.length"></div>
+            <textarea ng-model='resultsJSON'></textarea>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                <ol>
+                    <li ng-repeat='(k,v) in byfriend'>{{ k }} - {{ v }}</li>
+                </ol>
+            </div>
+            <div class="col-xs-4">
+                <ol>
+                    <li ng-repeat='(k,v) in tpds'>{{ k }} - {{ v }}</li>
+                </ol>
+            </div>
+        </div>
+        
+        <script src="lib/angular/angular.js" type="text/javascript"></script>
+        <script src="lib/angular-ui-router/release/angular-ui-router.min.js" type="text/javascript"></script>
+        <script src="lib/angular-animate/angular-animate.min.js" type="text/javascript"></script>
+        <script src="lib/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="lib/angular-touch/angular-touch.js" type="text/javascript"></script>                
+        <script src="lib/d3/d3.min.js" type="text/javascript"></script>
+        <script src="lib/pouchdb/dist/pouchdb.min.js" type="text/javascript"></script>
+        <script src="lib/pouchdb-all-dbs/dist/pouchdb.all-dbs.min.js" type="text/javascript"></script>        
+        <script src="/lifecourse/js/lifecourse.js" type="text/javascript"></script>
+        <script src="js/lie.js" type="text/javascript"></script>
+        <script src="/lifecourse/js/utils.js" type="text/javascript"></script>
+    </body>
+</html>
