@@ -1,0 +1,129 @@
+<div class="row">
+    <div class="col-lg-1">
+        <p>
+            This is an interview study which will take approximately 45 minutes to complete,
+            in which we will ask you to respond to several examples of hypothetical "future apps"
+            that might be made to help you protect your privacy in the future. 
+        </p>
+        <p>
+            If you volunteer and you will be asked to fill in a simple demographic questionnaire
+            online, and then to chat with one of the researchers above either in person or over 
+            Skype about the apps we will describe to you.  If you complete the study we will 
+            gladly reimburse you an amazon.co.uk gift certificate worth £10 for your time.
+        </p>
+        <p>
+            This study is <u>purely anonymous</u> and no personally identifying information
+            will be asked for, nor kept about you.
+        </p>
+        <p>
+            tl;dr version:
+        </p>
+        <table>
+            <tr><td>who:</td><td>you!</td></tr>                        
+            <tr><td>when:</td><td>27 july-5 september 2015</td></tr>                        
+            <tr><td>what:</td><td>
+                <p>1) one online questionnaires about how you use social media </p>
+                <p>2) one ~ 45 min face to face discussion about future tools</p>
+                </td>
+            </tr>
+            <tr><td>why:</td>
+                <td>
+                    We want to understand people's perceptions of how and
+                    whether people might use tools that use active disinformation
+                    strategies to increase their privacy.
+                </td>
+            </tr>
+            <tr><td>how long:</td><td>
+                    <ul>
+                        <li>~15 mins for questionnaire, </li>
+                        <li> ~45 min for interview </li>
+                    </ul>
+                </td>
+            </tr>                        
+            <tr><td>where:</td>
+                <td>On campus of University of Southampton, UK, 
+                    University of Edinburgh, UK, or anywhere else via Skype/Google Hangouts
+                </td>
+            </tr>
+            <tr><td>what do i get?</td><td>£10 amazon.co.uk gift certificate</td></tr>
+            <tr><td>privacy:</td>
+                <td>
+                    this study is <em>completely anonymous</em>.
+                </td>
+            </tr>                        
+        </table>
+    </div>
+    <div ng-show='!assessed'>
+        <h1> sign up! </h1>
+        <p>
+            To determine your eligibility, please read the consent form
+            and fill in the following form:
+        </p>
+        <ul>
+            <li>Are you over 18? - 
+                <div class="options">
+                    <input type="radio" name="over18" value="yes" ng-model="qualify.over18">yes
+                    <input type="radio" name="over18" value="no" ng-model="qualify.over18">no
+                </div>
+            </li>
+            <li>Are you a member of a vulnerable population ? - 
+                <div class="options">
+                    <input type="radio" name="vulnerable" value="yes" ng-model="qualify.vuln">yes
+                    <input type="radio" name="vulnerable" value="no" ng-model="qualify.vuln">no
+                </div>
+            </li>
+            <li>
+                Do you understand and agree to the terms of the consent form?
+                <div class="options">
+                    <input type="radio" name="consent" value="yes" ng-model="qualify.consent">yes
+                    <input type="radio" name="consent" value="no" ng-model="qualify.consent">no
+                </div>
+            </li>
+            <li>
+                <div class="btn btn-default" ng-disabled="!done" ng-click="assess()">Please assess my eligibility.</div>
+            </li>
+        </ul>
+    </div>
+    <div ng-if='assessed && qualify_result'>
+        <h1>You qualify for the study!</h1>
+        <p>
+            To continue, please provide an email address that we can use to notify
+            you of your appointment time.  This e-mail address will be used 
+            only to inform you about your interview slot only and be destroyed
+            after the interview.  
+        </p>
+        <div>
+            Email address (for notification): <input type="text" ng-model="signup.email">
+        </div>
+
+        <div>Please select your preferred Interview Location: 
+            <ul>
+                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="edinburgh">University of Edinburgh (Informatics)</li>
+                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="oxford">University of Oxford (CS) (August 23-Sept 5 only)</li>
+                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="skype">Skype/Web video chat</div></li>
+            </ul>
+        </div>
+
+        <div>
+            Please select dates that would work for you (please be as flexible as possible):  
+            <div class="col-sm-4" ng-repeat='m in months'>
+                {{ m.name }}:
+                <li ng-repeat="d in m.dates"> 
+                    <input name="dates" value="{{ d.toDateString() }}" type="checkbox" ng-model="signup.dates"><label>{{ d2str(d) }}</label>                         
+                </li>                        
+            </div>
+        </div>
+        <div>
+            <div class="btn btn-default" ng-disabled="submitted" ng-click="submit()">Submit my preferences and go on to the questionnaire!</div>
+            <div ng-if='submitError' ng-bind='submitError' class='bg-danger'></div>
+        </div>
+    </div>
+    <div ng-if='assessed && !qualify_result'>
+        <h1>Sorry, but thanks for your interest!</h1>
+        <p>
+            I'm sorry but we cannot select you for this study.
+            Please feel free to contact the researchers if you
+            have any questions.
+        </p>
+    </div>
+</div>
