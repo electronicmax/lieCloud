@@ -3,22 +3,44 @@
 
 var express = require('express'),
 	url = require('url'),
-	guid = require('guid'),
-	Flutter = require('flutter'),
 	session = require('express-session'),
 	_ = require('underscore'),
 	bodyparser = require('body-parser'),
 	bluebird = require('bluebird'),
-	collection = 'participants',
 	mongojs = require("mongojs"),	
-	dburi = "mongodb://localhost:27769/liecloud",
-    db = mongojs.connect(dburi, ["participants"]);
+	randomwords = require('random-words'),
+    db = mongojs('liecloud', ["signup", "questionnaire"]),
+	toJSON = function(o) { return JSON.stringify(o); };
+
+// dbs.on('ready',function() { console.log('signup database connected'); });
+// dbq.on('ready',function() { console.log('q response database connected'); });
 
 var app = express();
 app.use(session({secret:'keyboard cat'}));
-app.use(bodyparser.json({limit: '100mb'}));       // to support JSON-encoded bodies
-app.post('/twitter/genparticipant', function(req,res) { res.send('ok'); });
+app.use(bodyparser.json({limit: '100mb'}));  // to support JSON-encoded bodies
 app.get('/', function (req, res) { res.redirect('/index.html'); });
+
+app.post('/api/new_user_reg', 
+	function (req, res) { 
+		var pid = randomwords(5);
+		console.log('new user reg ', req.body);		
+		console.log('new participant id ', pid);
+		// add mongo stuff here
+		res.send(JSON.stringify({pId:pid}));
+	});
+
+app.post('/api/questionnaire', 
+	function (req, res) { 
+		var pId = req.body.pId,
+			responses = req.body.responses;
+		console.info('pId ', pId, responses);
+		if (!pId || !responses) { 
+			res.status(401).send(toJSON({error:'wrong params - no pId or responses'}));
+			return;
+		} 
+		res.send(JSON.stringify({pId:pId}));
+	});
+
 app.use(express.static('www'));
 
 var server = app.listen(8000, function () {

@@ -1,6 +1,7 @@
 *.pyc
 .DS_Store
 .DS_Store?
+mongo/
 ._*
 .Spotlight-V100
 .Trashes
