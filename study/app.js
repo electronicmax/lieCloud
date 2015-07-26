@@ -19,9 +19,9 @@ app.get('/', function (req, res) { res.redirect('/index.html'); });
 
 app.post('/api/new_user_reg', 
 	function (req, res) { 
-		var pid = randomwords(5);
 		console.log('new user reg ', req.body);		
 		console.log('new participant id ', pid);
+		var pid = randomwords(3).join(' ');		
 		// add mongo stuff here
 		// db.signups.insert({});
 		res.send(JSON.stringify({pId:pid}));

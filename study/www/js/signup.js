@@ -61,8 +61,10 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 
 				$scope.submit = function() {
 					$scope.submitted = true;
-					$.ajax({method:'POST', url:'/api/new_user_reg', data:JSON.stringify($scope.signup), processData:false}).then(function(x) {
-						sa(function() { $state.go('questionnaire', { pid: x.id }); });
+					$.ajax({method:'POST', url:'/api/new_user_reg', data:JSON.stringify($scope.signup), contentType:'application/json', processData:false}).then(function(x) {
+						var results = JSON.parse(x);
+						console.log(results);
+						sa(function() { $state.go('questionnaire', { pid: results.pId }); });
 					}).fail(function(err) {
 						sa(function() { 
 							$scope.submitted = false;
