@@ -29,6 +29,8 @@
     "angular-animate": "",
     "angular-touch": "",
     "pouchdb": "",
-    "pouchdb-all-dbs": ""
+    "pouchdb-all-dbs": "",
+    "angular-sanitize": "~1.4.3",
+    "mailcheck": "~1.1.1"
   }
 }

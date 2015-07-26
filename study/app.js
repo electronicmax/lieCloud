@@ -9,11 +9,8 @@ var express = require('express'),
 	bluebird = require('bluebird'),
 	mongojs = require("mongojs"),	
 	randomwords = require('random-words'),
-    db = mongojs('liecloud', ["signup", "questionnaire"]),
+    db = mongojs('liecloud', ["signups", "questionnaire"]),
 	toJSON = function(o) { return JSON.stringify(o); };
-
-// dbs.on('ready',function() { console.log('signup database connected'); });
-// dbq.on('ready',function() { console.log('q response database connected'); });
 
 var app = express();
 app.use(session({secret:'keyboard cat'}));
@@ -26,6 +23,7 @@ app.post('/api/new_user_reg',
 		console.log('new user reg ', req.body);		
 		console.log('new participant id ', pid);
 		// add mongo stuff here
+		// db.signups.insert({});
 		res.send(JSON.stringify({pId:pid}));
 	});
 

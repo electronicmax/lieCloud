@@ -17,7 +17,7 @@ var tojson = function(x) { return JSON.stringify(x); },
 	    }
 	};
 
-angular.module('liecloud', ['lifecourse'])
+angular.module('liecloud', ['lifecourse', 'ui.router'])
 	.config(function($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise('/intro');
 		$stateProvider.state('intro', {
@@ -29,7 +29,7 @@ angular.module('liecloud', ['lifecourse'])
 					genDates = function(year, mm) {
 						var d = new Date([year,mm,1].join('-')),
 							dates = [];
-						while (d.getMonth() == mm) { 
+						while (d.getMonth() + 1 == mm) { 
 							dates.push(d);
 							d = u.daysOffset(d,1);
 						}
@@ -42,23 +42,22 @@ angular.module('liecloud', ['lifecourse'])
 					signup_guid : utils.guid()
 				};
 				$scope.months = [
-					{ 
-						name:'july',
-						dates: [new Date('2015-07-28'),new Date('2015-07-29'),new Date('2015-07-30'),new Date('2015-07-21')]
-					},
-					{ 	name:'august', dates: genDates(2015, 8)},
-					{   name:'september', dates: [u.range(1,11).map(function(x) { return new Date('2015-09-'+x);})] }
+					{ name:'july', dates: [new Date('2015-07-29'),new Date('2015-07-30'),new Date('2015-07-21')]},
+					{ name:'august', dates: genDates(2015, 8)},
+					{ name:'september', dates: u.range(1,11).map(function(x) { return new Date('2015-09-'+x);}) }
 				];
 				$scope.dow = function(x) { return u.DOW_FULL[x.getDay()]; };
-				$scope.d2str = function(x) { return $scope.dow(x) + x.getDate() + u.MON_SHORT[x.getMonth()]; };
+				$scope.d2str = function(x) { return [$scope.dow(x), x.getDate(), u.MON_SHORT[x.getMonth()]].join(' '); };
 				$scope.assess = function() {
-					$scope.assessed = true;
-					return $scope.qualify.consent=='yes' && $scope.qualify.vuln=='no' && $scope.qualify.over18=='yes';
+					console.info('assess', $scope.qualify);
+					$scope.assessed = $scope.qualify.consent !== undefined && $scope.qualify.over18 !== undefined;
+					$scope.qualify_result =  $scope.qualify.consent=='yes' && $scope.qualify.over18=='yes';
 				};
+				$scope.$watchCollection('qualify', $scope.assess);
+
 				$scope.submit = function() {
 					$scope.submitted = true;
 					$.ajax({method:'POST', url:'/api/new_user_reg', data:JSON.stringify($scope.signup), processData:false}).then(function(x) {
-						console.log('participant id ', x, x.id);
 						sa(function() { $state.go('questionnaire', { pid: x.id }); });
 					}).fail(function(err) {
 						sa(function() { 
@@ -68,9 +67,27 @@ angular.module('liecloud', ['lifecourse'])
 					});
 				};
 				$scope.$watchCollection('qualify', function() { 
-					$scope.done = $scope.qualify.consent && $scope.qualify.vuln && $scope.qualify.over18; 
+					$scope.done = $scope.qualify.consent && $scope.qualify.over18; 
 					console.log('done is ', $scope.done);
 				});
+
+
+				// set up email checking 
+
+				$('#email').on('blur', validateEmail);
+				var validateEmail = function() {
+					var se = $scope.email && $scope.email.trim() || '';
+					$scope.emailValid = se.length > 3 && se.indexOf('@') > 0 && se.indexOf('.') > 0 && se.slice(se.lastIndexOf('.')+1).length >= 2;
+				}, validate = function() { 
+					var v = validateEmail() && $scope.signup.interviewpref !== undefined && $scope.signup.dates !== undefined;
+					console.info('valid? ', validateEmail(), $scope.signup.interviewpref, $scope.signup.dates, v);
+					return v;
+				};
+
+				$scope.$watch('email', validate);
+				$scope.$watchCollection('signup', validate);
+				
+				window.ss = $scope;
 			}
 		}).state('questionnaire', {
 			url:'/questions?pid',
@@ -98,6 +115,6 @@ angular.module('liecloud', ['lifecourse'])
 
 			}			
 		});
-	}).controller('main', function($scope, utils, $http, $timeout, server) { 
+	}).controller('main', function() { 
 
 	})

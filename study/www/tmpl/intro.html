@@ -53,68 +53,59 @@
             </tr>                        
         </table>
     </div>
-    <div ng-show='!assessed'>
-        <h1> sign up! </h1>
+    <div>
+        <h1> study eligibility </h1>
         <p>
-            To determine your eligibility, please read the consent form
-            and fill in the following form:
+            To determine your eligibility, please answer the following prescreening questions:
         </p>
         <ul>
-            <li>Are you over 18? - 
-                <div class="options">
-                    <input type="radio" name="over18" value="yes" ng-model="qualify.over18">yes
-                    <input type="radio" name="over18" value="no" ng-model="qualify.over18">no
+            <li class="question">Are you over 18? - 
+                <div class="responses">
+                    <div class=""><input type="radio" name="over18" value="yes" ng-model="qualify.over18">yes <span class="glyphicon glyphicon-ok" ng-if="qualify.over18=='yes'"></span></div>
+                    <div class=""><input type="radio" name="over18" value="no" ng-model="qualify.over18">no <span class="glyphicon glyphicon-remove" ng-if="qualify.over18=='no'"></span></div>
                 </div>
             </li>
-            <li>Are you a member of a vulnerable population ? - 
-                <div class="options">
-                    <input type="radio" name="vulnerable" value="yes" ng-model="qualify.vuln">yes
-                    <input type="radio" name="vulnerable" value="no" ng-model="qualify.vuln">no
+            <li class="question">
+                Did you review &amp; understand the <a href="https://docs.google.com/document/d/1G42LS6STIY-4QuRcn8ZU-6vJbduqe_dVYvRU_cWjFfQ/pub" target="_blank">participant information sheet</a>?
+                <div class="responses">
+                    <div class=""><input type="radio" name="consent" value="yes" ng-model="qualify.consent">yes <span class="glyphicon glyphicon-ok" ng-if="qualify.consent=='yes'"></span></div>
+                    <div class=""><input type="radio" name="consent" value="no" ng-model="qualify.consent">no <span class="glyphicon glyphicon-remove" ng-if="qualify.consent=='no'"></span></div>
                 </div>
-            </li>
-            <li>
-                Do you understand and agree to the terms of the consent form?
-                <div class="options">
-                    <input type="radio" name="consent" value="yes" ng-model="qualify.consent">yes
-                    <input type="radio" name="consent" value="no" ng-model="qualify.consent">no
-                </div>
-            </li>
-            <li>
-                <div class="btn btn-default" ng-disabled="!done" ng-click="assess()">Please assess my eligibility.</div>
             </li>
         </ul>
     </div>
-    <div ng-if='assessed && qualify_result'>
-        <h1>You qualify for the study!</h1>
+    <div ng-show='assessed && qualify_result'>
+        <h1>You qualify!</h1>
         <p>
             To continue, please provide an email address that we can use to notify
             you of your appointment time.  This e-mail address will be used 
             only to inform you about your interview slot only and be destroyed
             after the interview.  
         </p>
-        <div>
-            Email address (for notification): <input type="text" ng-model="signup.email">
-        </div>
 
-        <div>Please select your preferred Interview Location: 
-            <ul>
-                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="edinburgh">University of Edinburgh (Informatics)</li>
-                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="oxford">University of Oxford (CS) (August 23-Sept 5 only)</li>
-                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="skype">Skype/Web video chat</div></li>
-            </ul>
-        </div>
+       <h4>your email</h4>
+       <div>
+        <input id="email" name="email" type="email" ng-model="signup.email">
+        <div class="emailSuggestion" ng-if="signup.email.length > 0 && !emailValid"> That doesn't quite look like an e-mail address - try again? </div>
+       </div>
 
-        <div>
-            Please select dates that would work for you (please be as flexible as possible):  
-            <div class="col-sm-4" ng-repeat='m in months'>
-                {{ m.name }}:
-                <li ng-repeat="d in m.dates"> 
-                    <input name="dates" value="{{ d.toDateString() }}" type="checkbox" ng-model="signup.dates"><label>{{ d2str(d) }}</label>                         
-                </li>                        
-            </div>
+       <h4>preferred interview location :</h4>
+       <ul>
+            <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="edinburgh">University of Edinburgh (Informatics)</li>
+            <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="oxford">University of Oxford (CS) (August 23-Sept 5 only)</li>
+            <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="skype">Skype/Web video chat</li>
+       </ul>
+
+       <h4>preferred interview date(s). (Please be as flexible as possible)</h4>
+        <div class="col-sm-4" ng-repeat='m in months'>
+            {{ m.name }}:
+            <li ng-repeat="d in m.dates"> 
+                <input name="dates" value="{{ d.toDateString() }}" type="checkbox" ng-model="signup.dates"><label>{{ d2str(d) }}</label>                         
+            </li>                        
         </div>
+        
         <div>
-            <div class="btn btn-default" ng-disabled="submitted" ng-click="submit()">Submit my preferences and go on to the questionnaire!</div>
+            <div class="btn btn-default" ng-disabled="!valid || submitted" ng-click="submit()">Submit ></div>
             <div ng-if='submitError' ng-bind='submitError' class='bg-danger'></div>
         </div>
     </div>
