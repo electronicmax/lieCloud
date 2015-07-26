@@ -6,36 +6,51 @@ var express = require('express'),
 	session = require('express-session'),
 	_ = require('underscore'),
 	bodyparser = require('body-parser'),
-	bluebird = require('bluebird'),
-	mongojs = require("mongojs"),	
+	Promise = require('bluebird'),
+	mongojs = require("mongojs"),
 	randomwords = require('random-words'),
-    db = mongojs('liecloud', ["signups", "questionnaire"]),
-	toJSON = function(o) { return JSON.stringify(o); };
+	stringify = function(o) { return JSON.stringify(o); };
 
-var app = express();
+Promise.promisifyAll([
+   require("mongojs/lib/collection"),
+   require("mongojs/lib/database"),
+   require("mongojs/lib/cursor")
+]);
+
+var db = mongojs('liecloud', ["signups", "questionnaire"]),
+	app = express();
+
 app.use(session({secret:'keyboard cat'}));
 app.use(bodyparser.json({limit: '100mb'}));  // to support JSON-encoded bodies
-app.get('/', function (req, res) { res.redirect('/index.html'); });
 
+app.get('/', function (req, res) { res.redirect('/index.html'); });
 app.post('/api/new_user_reg', 
 	function (req, res) { 
+		var pId = randomwords(3).join(' '),
+			params = _({pid:pId}).extend(req.body);
+
 		console.log('new user reg ', req.body);		
-		console.log('new participant id ', pid);
-		var pid = randomwords(3).join(' ');		
-		// add mongo stuff here
-		// db.signups.insert({});
-		res.send(JSON.stringify({pId:pid}));
+		console.log('new participant id ', pId);
+
+		db.signups.insertAsync(params).then(function(foo) {
+			console.log('foo ', foo);
+			res.send(stringify({pId:pId}));
+		}).catch(function(err) {
+			res.status(500).send(stringify({error:err.message}));
+		});
 	});
 
 app.post('/api/questionnaire', 
 	function (req, res) { 
 		var pId = req.body.pId,
-			responses = req.body.responses;
+			responses = req.body.responses;			
 		console.info('pId ', pId, responses);
 		if (!pId || !responses) { 
-			res.status(401).send(toJSON({error:'wrong params - no pId or responses'}));
+			res.status(401).send(stringify({error:'wrong params - no pId or responses'}));
 			return;
 		} 
+		console.info('questionnaire. saving ', req.body);		
+		db.questionnaire.insert(req.body);
 		res.send(JSON.stringify({pId:pId}));
 	});
 
