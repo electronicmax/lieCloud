@@ -40,57 +40,60 @@
         </ul>
     </div>
 </div>
-<div ng-show='true || assessed && qualify_result'>
+<div ng-show='assessed && qualify_result'>
     <div class="row">
-        <h2>You qualify!</h2>
-        <p>
-            To continue, answer the following questions:
-        </p>
+        <div class="col-lg-12">
 
-        <div class="question">
-            <h4>your email:</h4>
+            <h2>You qualify!</h2>
             <p>
-                Your email will only be used to schedule your appointment and will kept separate from
-                your participant identifier to keep your data anonymous.  Your e-mail will be deleted
-                immediately after your interview.
+                To continue, answer the following questions:
             </p>
-            <div>
-                <input id="email" name="email" type="text" ng-model="signup.email">
-                <div class="emailSuggestion" ng-if="signup.email.length > 0 && !emailValid"> That doesn't quite look like an e-mail address - try again? </div>
+
+            <div class="question">
+                <h4>your email:</h4>
+                <p>
+                    Your email will only be used to schedule your appointment and will kept separate from
+                    your participant identifier to keep your data anonymous.  Your e-mail will be deleted
+                    immediately after your interview.
+                </p>
+                <div>
+                    <input id="email" name="email" type="text" ng-model="signup.email">
+                    <div class="emailSuggestion" ng-if="signup.email.length > 0 && !emailValid"> That doesn't quite look like an e-mail address - try again? </div>
+                </div>
             </div>
-        </div>
 
-        <div class="question">
-            <h4>your preferred interview location:</h4>
-            <p>
-                Interviews can be conducted on site at the University of Oxford, or University of Edinburgh during 
-                dates depending on researcher availability, or more flexibly remotely via Skype/Web video chat and
-                should take around 30 mins to complete.
-            </p>
-            <ul>
-                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="edinburgh"> University of Edinburgh (Informatics)</li>
-                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="oxford"> University of Oxford (CS) (August 23-Sept 5 only)</li>
-                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="skype"> Skype/Web video chat</li>
-            </ul>
-        </div>
+            <div class="question">
+                <h4>your preferred interview location:</h4>
+                <p>
+                    Interviews can be conducted on site at the University of Oxford, or University of Edinburgh during 
+                    dates depending on researcher availability, or more flexibly remotely via Skype/Web video chat and
+                    should take around 30 mins to complete.
+                </p>
+                <ul>
+                    <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="edinburgh"> University of Edinburgh (Informatics)</li>
+                    <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="oxford"> University of Oxford (CS) (August 23-Sept 5 only)</li>
+                    <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="skype"> Skype/Web video chat</li>
+                </ul>
+            </div>
 
-        <div class="question">
-            <h4>your preferred interview date(s)</h4>
-            <h6>(please be as flexible as possible!)</h6>
-            <div class="col-sm-4" ng-repeat='m in months'>
-                {{ m.name }}:
-                <li ng-repeat="d in m.dates"> 
-                    <input name="dates" value="{{ d2val(d) }}" type="checkbox" ng-model="signup.dates[d2val(d)]"> - {{ d2str(d) }}                         
-                </li>                        
-            </div>    
-        </div>
+            <div class="question">
+                <h4>your preferred interview date(s)</h4>
+                <h6>(please be as flexible as possible!)</h6>
+                <div class="col-sm-4" ng-repeat='m in months'>
+                    {{ m.name }}:
+                    <li ng-repeat="d in m.dates"> 
+                        <input name="dates" value="{{ d2val(d) }}" type="checkbox" ng-model="signup.dates[d2val(d)]"> - {{ d2str(d) }}                         
+                    </li>                        
+                </div>    
+            </div>
 
-        <div class="question">
-            <button class="btn btn-default" ng-disabled="!valid || submitted" ng-click="submit()">Submit ></button>
-            <div ng-if='submitError' ng-bind='submitError' class='bg-danger'></div>
-        </div>
-    </div>
-</div>
+            <div class="question">
+                <button class="btn btn-default" ng-disabled="!valid || submitted" ng-click="submit()">Submit ></button>
+                <div ng-if='submitError' ng-bind='submitError' class='bg-danger'></div>
+            </div>
+        </div> <!-- lg -->
+    </div> <!-- row -->
+</div> <!-- form -->
 
 <div ng-if='assessed && !qualify_result'>
     <h1>Sorry, but thanks for your interest!</h1>
