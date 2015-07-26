@@ -100,7 +100,10 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 			url:'/questions?pid',
 			templateUrl:'tmpl/questions.html',
 			controller:function($scope, $state, $stateParams, utils) {
-				var pId = $scope.pId = $stateParams.pid;
+				var sa = function(fn) { if (window) { window.setTimeout(function() { $scope.$apply(fn); }, 0); } },
+					u = utils,
+					pId = $scope.pId = $stateParams.pid;
+
 				console.info('state entering questionnaire - ', pId);
 				$scope.responses = {};
 				$scope.meta = {
@@ -112,12 +115,15 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 					$scope.meta.survey_end = new Date();
 					var payload = _({}).chain().extend($scope.meta).extend({responses:$scope.responses}).value();
 					$.ajax({method:'POST', url:'/api/questionnaire', data:JSON.stringify(payload), contentType:'application/json', processData:false}).then(function(x) {
-						$scope.submitted = true;
-						$state.go('thankyou');
-					}).
-					fail(function(err) {
-						$scope.submitted = false;
-						$state.error = err;
+						sa(function() { 
+							$scope.submitted = true;
+							$state.go('thankyou');
+						});
+					}).fail(function(err) {
+						sa(function() { 
+							$scope.submitted = false;
+							$scope.error = err.message || err.statusText; 
+						});
 					});
 				}
 			}

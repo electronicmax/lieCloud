@@ -1,18 +1,24 @@
-<div class="row">
-	<div class="col-lg-12">
-		<h2>Study Part 1: Questionnaire</h2>
+<div>
+	<div>
+		<h2>Online Questionnaire</h2>
+
+		<p> 
+			Participant ID: <b ng-bind="pId"></b> 
+		</p>
 
 		<p>
-			The first part of this study is the following questionnaire. You may complete
-			it now or come back to this web page later. 
-		</p>
+			The first part of this study is the following online questionnaire. 
+			You may complete it now or come back to this web page later.  This
+			is your own personal copy of the questionnaire so please do not share
+			it with others.
+		</p> 
 		<p>
-			It should take approximately 10 minutes.
+			It should take approximately 10 minutes. If you have any comments about any 
+			of your answers to any of the questions feel free to add the comments 
+			at the bottom.
 		</p>
-		<p>
-			If you have any comments about any of your answers to any of the questions feel free to
-			add the comments at the bottom.
-		</p>
+
+		<hr> 
 
 		<ol class="questionnaire">
 			<li class="question">
@@ -52,7 +58,6 @@
 					<div><input ng-model="responses.workonline" type="radio" name="workonline" value="2-4"> 2-4 hours</div>
 					<div><input ng-model="responses.workonline" type="radio" name="workonline" value="5-8"> 5-8 hours</div>
 					<div><input ng-model="responses.workonline" type="radio" name="workonline" value="8+"> more than 8 hours</div>
-					<div><input ng-model="responses.workonline" type="radio" name="workonline" value="N/A"> N/A</div>
 				</div>     
 			</li>
 			<li class="question">
@@ -62,7 +67,6 @@
 					<div><input ng-model="responses.leisureonline" type="radio" name="leisureonline" value="2-4"> 2-4 hours</div>
 					<div><input ng-model="responses.leisureonline" type="radio" name="leisureonline" value="5-8"> 5-8 hours</div>
 					<div><input ng-model="responses.leisureonline" type="radio" name="leisureonline" value="8+"> more than 8 hours</div>                    
-					<div><input ng-model="responses.leisureonline" type="radio" name="leisureonline" value="N/A"> N/A</div>
 				</div>     
 			</li>
 			<li class="question">
@@ -89,18 +93,16 @@
 					<div><input ng-model="responses.structuredwork" type="radio" name="structuredwork" value="scheduled"> I keep a packed calendar schedule.</div>  
 					<div><input ng-model="responses.structuredwork" type="radio" name="structuredwork" value="semiflex"> I work flexibly and use a calendar for a few fixed meetings/events.</div>
 					<div><input ng-model="responses.structuredwork" type="radio" name="structuredwork" value="flexibly"> I go with the flow / work flexibly without a calendar.</div>
-					<div><input ng-model="responses.structuredwork" type="radio" name="structuredwork" value="N/A"> N/A</div>
 				</div>     
 			</li>
 			<li class="question" ng-if='!responses.employment || responses.employment=="fulltime" || responses.employment=="parttime"'>
 				<div class="text">How busy is your average workday?</div>
 				<div class="responses">
-					<div><input ng-model="responses.busywork" type="radio" name="busywork" value="slow"> pretty slow</div>  
-					<div><input ng-model="responses.busywork" type="radio" name="busywork" value="avg"> average</div>
-					<div><input ng-model="responses.busywork" type="radio" name="busywork" value="busy"> busy</div>
-					<div><input ng-model="responses.busywork" type="radio" name="busywork" value="verybusy"> very busy</div>
-					<div><input ng-model="responses.busywork" type="radio" name="busywork" value="variable"> variable/bursty</div>
-					<div><input ng-model="responses.busywork" type="radio" name="busywork" value="N/A"> N/A</div>
+					<div><input ng-model="responses.busywork" type="radio" name="busywork" value="slow"> Slow.</div>  
+					<div><input ng-model="responses.busywork" type="radio" name="busywork" value="avg"> Average.</div>
+					<div><input ng-model="responses.busywork" type="radio" name="busywork" value="busy"> Busy.</div>
+					<div><input ng-model="responses.busywork" type="radio" name="busywork" value="verybusy"> Very busy.</div>
+					<div><input ng-model="responses.busywork" type="radio" name="busywork" value="variable"> Variable/bursty.</div>
 				</div>     
 			</li>
 			<li class="question">
@@ -109,27 +111,26 @@
 					<div><input ng-model="responses.structuredsocial" type="radio" name="structuredsocial" value="structured"> I schedule my social time in advance.</div>  
 					<div><input ng-model="responses.structuredsocial" type="radio" name="structuredsocial" value="semiflex"> I usually manage my social commitments flexibly, but pre-schedule some.</div>
 					<div><input ng-model="responses.structuredsocial" type="radio" name="structuredsocial" value="flexible"> I go with the flow generally without scheduling.</div>
-					<div><input ng-model="responses.structuredsocial" type="radio" name="structuredsocial" value="N/A"> N/A</div>
 				</div>     
 			</li>
 			<li class="question">
 				<div class="text">How busy is your <b>offline</b> social life (e.g. real-world friends, dates, relatives)?</div>
 				<div class="responses">
-					<div><input ng-model="responses.busyofflinesocial" type="radio" name="busyofflinesocial" value="slow"> pretty slow</div>  
-					<div><input ng-model="responses.busyofflinesocial" type="radio" name="busyofflinesocial" value="avg"> average</div>
-					<div><input ng-model="responses.busyofflinesocial" type="radio" name="busyofflinesocial" value="busy"> busy</div>
-					<div><input ng-model="responses.busyofflinesocial" type="radio" name="busyofflinesocial" value="verybusy"> very busy</div>
-					<div><input ng-model="responses.busyofflinesocial" type="radio" name="busyofflinesocial" value="variable"> variable/bursty</div>               
+					<div><input ng-model="responses.busyofflinesocial" type="radio" name="busyofflinesocial" value="slow"> Slow</div>  
+					<div><input ng-model="responses.busyofflinesocial" type="radio" name="busyofflinesocial" value="avg"> Average.</div>
+					<div><input ng-model="responses.busyofflinesocial" type="radio" name="busyofflinesocial" value="busy"> Busy.</div>
+					<div><input ng-model="responses.busyofflinesocial" type="radio" name="busyofflinesocial" value="verybusy"> Very busy.</div>
+					<div><input ng-model="responses.busyofflinesocial" type="radio" name="busyofflinesocial" value="variable"> Variable/bursty.</div>               
 				</div>     
 			</li>        
 			<li class="question">
 				<div class="text">How busy is your <b>online</b> social life (e.g. chatting/hanging out online)?</div>
 				<div class="responses">
-					<div><input ng-model="responses.busyonlinesocial" type="radio" name="busyonlinesocial" value="slow"> pretty slow</div>  
-					<div><input ng-model="responses.busyonlinesocial" type="radio" name="busyonlinesocial" value="avg"> average</div>
-					<div><input ng-model="responses.busyonlinesocial" type="radio" name="busyonlinesocial" value="busy"> busy</div>
-					<div><input ng-model="responses.busyonlinesocial" type="radio" name="busyonlinesocial" value="verybusy"> very busy</div>
-					<div><input ng-model="responses.busyonlinesocial" type="radio" name="busyonlinesocial" value="variable"> variable/bursty</div>                
+					<div><input ng-model="responses.busyonlinesocial" type="radio" name="busyonlinesocial" value="slow"> Slow.</div>  
+					<div><input ng-model="responses.busyonlinesocial" type="radio" name="busyonlinesocial" value="avg"> Average.</div>
+					<div><input ng-model="responses.busyonlinesocial" type="radio" name="busyonlinesocial" value="busy"> Busy.</div>
+					<div><input ng-model="responses.busyonlinesocial" type="radio" name="busyonlinesocial" value="verybusy"> Very busy.</div>
+					<div><input ng-model="responses.busyonlinesocial" type="radio" name="busyonlinesocial" value="variable"> Variable/bursty.</div>                
 				</div>     
 			</li>        
 			<li class="question">
@@ -151,11 +152,13 @@
 				</div>     
 			</li>
 			<li class="question">
-				<div class="text">How much do you use Facebook?</div>
+				<div class="text">Do you use Facebook, and if so how much?</div>
 				<div class="responses">
-					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="lots"> Yes, often.</div>  
-					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="some"> Yes, occasionally.</div>
-					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="no"> No</div>
+					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="no"> No.</div>				
+					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="onceinawhile"> Once in a while.</div>  
+					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="fewtimesaweek"> A few times a week.</div>  
+					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="everyday"> Every day.</div>  
+					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="severaladay"> Several times a day.</div>  
 				</div>     
 			</li>
 			<li class="question" ng-if="responses.usefacebook=='lots' || responses.usefacebook=='some'">
@@ -163,43 +166,43 @@
 				<div class="responses">
 					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="none"> None.</div>  
 					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="some"> Yes, but rarely.</div>
-					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="half"> About 50%</div>
-					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="most"> Most</div>
-					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="all"> All</div>
+					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="half"> About half.</div>
+					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="most"> Most.</div>
+					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="all"> All.</div>
 				</div>     
 			</li>
 			<li class="question">
 				<div class="text">Do you use Instagram, and if so how much?</div>
 				<div class="responses">
 					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="no"> No.</div>  
-					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="onceinawhile"> Once in a while</div>  
-					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="fewtimesaweek"> A few times a week</div>  
-					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="everyday"> Every day</div>  
-					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="severaladay"> Several times a day</div>  
+					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="onceinawhile"> Once in a while.</div>  
+					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="fewtimesaweek"> A few times a week.</div>  
+					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="everyday"> Every day.</div>  
+					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="severaladay"> Several times a day.</div>  
 				</div>     
 			</li>
 			<li class="question">
 				<div class="text">Do you use Foursquare, and if so how much?</div>
 				<div class="responses">
 					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="no"> No.</div>  
-					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="onceinawhile"> Once in a while</div>  
-					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="fewtimesaweek"> A few times a week</div>  
-					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="everyday"> Every day</div>  
-					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="severaladay"> Several times a day</div>  
+					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="onceinawhile"> Once in a while.</div>  
+					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="fewtimesaweek"> A few times a week.</div>  
+					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="everyday"> Every day.</div>  
+					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="severaladay"> Several times a day.</div>  
 				</div>     
 			</li>
 			<li class="question">
 				<div class="text">Do you use any of the following tools to track your movement/location?</div>
 				<div class="responses">
-					<div><input ng-model="responses.useqstools" type="checkbox" name="useqstools" value="gpsapp"> A GPS/position logging app on your smartphone</div>  
-					<div><input ng-model="responses.useqstools" type="checkbox" name="useqstools" value="gps"> A GPS device</div>  
-					<div><input ng-model="responses.useqstools" type="checkbox" name="useqstools" value="fitbit"> A FitBit </div>  
-					<div><input ng-model="responses.useqstools" type="checkbox" name="useqstools" value="withings"> A Withings Activité </div>  
-					<div><input ng-model="responses.useqstools" type="checkbox" name="useqstools" value="up"> A Jawbone UP </div>  
-					<div><input ng-model="responses.useqstools" type="checkbox" name="useqstools" value="androidsw"> An Android Smartwatch </div>  
-					<div><input ng-model="responses.useqstools" type="checkbox" name="useqstools" value="applew"> An Apple Watch </div>  
-					<div><input ng-model="responses.useqstools" type="checkbox" name="useqstools" value="pebblew"> A Pebble </div>  
-					<div><input ng-model="responses.useqstools" type="checkbox" name="useqstools" value="msband"> A Microsoft Band </div>  
+					<div><input ng-model="responses.useqstools.gpsapp" type="checkbox" name="useqstools" > A GPS/position logging app on your smartphone</div>  
+					<div><input ng-model="responses.useqstools.gpsdevice" type="checkbox" name="useqstools" > A GPS device</div>  
+					<div><input ng-model="responses.useqstools.fitbit" type="checkbox" name="useqstools" > A FitBit </div>  
+					<div><input ng-model="responses.useqstools.withings" type="checkbox" name="useqstools" > A Withings Activité </div>  
+					<div><input ng-model="responses.useqstools.jawbone" type="checkbox" name="useqstools"> A Jawbone UP </div>  
+					<div><input ng-model="responses.useqstools.androidwatch" type="checkbox" name="useqstools"> An Android Smartwatch </div>  
+					<div><input ng-model="responses.useqstools.applewatch" type="checkbox" name="useqstools"> An Apple Watch </div>  
+					<div><input ng-model="responses.useqstools.pebble" type="checkbox" name="useqstools"> A Pebble </div>  
+					<div><input ng-model="responses.useqstools.msband" type="checkbox" name="useqstools"> A Microsoft Band </div>  
 				</div>
 			</li>
 
@@ -211,6 +214,10 @@
 			<h4>That's it! Hit Send below to send off the questionnaire</h4>
 			<li>
 				<button class="btn btn-info" ng-click="submit()">Submit answers</button>
+				<div ng-if="error" class="alert alert-danger"  role="alert">
+					Error transmitting results: <span ng-bind="error"></span>.
+					Please check your Web connectivity and try again.
+				</div>
 			</li>
 		</ol>    
 		<hr>

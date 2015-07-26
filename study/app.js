@@ -50,8 +50,11 @@ app.post('/api/questionnaire',
 			return;
 		} 
 		console.info('questionnaire. saving ', req.body);		
-		db.questionnaire.insert(req.body);
-		res.send(JSON.stringify({pId:pId}));
+		db.questionnaire.insertAsync(req.body).then(function() { 
+			res.send(JSON.stringify({pId:pId}));
+		}).catch(function(err) {
+			res.status(500).send(stringify({error:err.message}));
+		});
 	});
 
 app.use(express.static('www'));
