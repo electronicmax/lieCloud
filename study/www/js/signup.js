@@ -30,7 +30,9 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 						var d = new Date([year,mm,1].join('-')),
 							dates = [];
 						while (d.getMonth() + 1 == mm) { 
-							dates.push(d);
+							if (d.getDay() > 0 && d.getDay() < 6) { 
+								dates.push(d);
+							}
 							d = u.daysOffset(d,1);
 						}
 						return dates;
@@ -38,6 +40,7 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 
 				$scope.qualify = {};		
 				$scope.signup = {
+					email:'',
 					signup_date : new Date(),
 					signup_guid : utils.guid()
 				};
@@ -48,6 +51,7 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 				];
 				$scope.dow = function(x) { return u.DOW_FULL[x.getDay()]; };
 				$scope.d2str = function(x) { return [$scope.dow(x), x.getDate(), u.MON_SHORT[x.getMonth()]].join(' '); };
+				$scope.d2val = function(x) { return x.toDateString(); };
 				$scope.assess = function() {
 					console.info('assess', $scope.qualify);
 					$scope.assessed = $scope.qualify.consent !== undefined && $scope.qualify.over18 !== undefined;
@@ -73,19 +77,20 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 
 
 				// set up email checking 
-
-				$('#email').on('blur', validateEmail);
 				var validateEmail = function() {
-					var se = $scope.email && $scope.email.trim() || '';
-					$scope.emailValid = se.length > 3 && se.indexOf('@') > 0 && se.indexOf('.') > 0 && se.slice(se.lastIndexOf('.')+1).length >= 2;
+					var se = $scope.signup.email || '';
+					se = se.trim();
+					console.info($scope.signup.email, se.length > 3, se.indexOf('@') > 0, se.indexOf('.') > 0, se.slice(se.lastIndexOf('.')+1).length >= 2);
+					return $scope.emailValid = se.length > 3 && se.indexOf('@') > 0 && se.indexOf('.') > 0 && se.slice(se.lastIndexOf('.')+1).length >= 2;
 				}, validate = function() { 
 					var v = validateEmail() && $scope.signup.interviewpref !== undefined && $scope.signup.dates !== undefined;
 					console.info('valid? ', validateEmail(), $scope.signup.interviewpref, $scope.signup.dates, v);
-					return v;
+					return $scope.valid = v;
 				};
 
-				$scope.$watch('email', validate);
+				$('#email').on('blur', validateEmail);
 				$scope.$watchCollection('signup', validate);
+				$scope.$watchCollection('signup.dates', validate);
 				
 				window.ss = $scope;
 			}

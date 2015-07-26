@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-1">
+    <div class="col-lg-12">
         <p>
             This is an interview study which will take approximately 45 minutes to complete,
             in which we will ask you to respond to several examples of hypothetical "future apps"
@@ -15,45 +15,10 @@
             This study is <u>purely anonymous</u> and no personally identifying information
             will be asked for, nor kept about you.
         </p>
-        <p>
-            tl;dr version:
-        </p>
-        <table>
-            <tr><td>who:</td><td>you!</td></tr>                        
-            <tr><td>when:</td><td>27 july-5 september 2015</td></tr>                        
-            <tr><td>what:</td><td>
-                <p>1) one online questionnaires about how you use social media </p>
-                <p>2) one ~ 45 min face to face discussion about future tools</p>
-                </td>
-            </tr>
-            <tr><td>why:</td>
-                <td>
-                    We want to understand people's perceptions of how and
-                    whether people might use tools that use active disinformation
-                    strategies to increase their privacy.
-                </td>
-            </tr>
-            <tr><td>how long:</td><td>
-                    <ul>
-                        <li>~15 mins for questionnaire, </li>
-                        <li> ~45 min for interview </li>
-                    </ul>
-                </td>
-            </tr>                        
-            <tr><td>where:</td>
-                <td>On campus of University of Southampton, UK, 
-                    University of Edinburgh, UK, or anywhere else via Skype/Google Hangouts
-                </td>
-            </tr>
-            <tr><td>what do i get?</td><td>£10 amazon.co.uk gift certificate</td></tr>
-            <tr><td>privacy:</td>
-                <td>
-                    this study is <em>completely anonymous</em>.
-                </td>
-            </tr>                        
-        </table>
     </div>
-    <div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
         <h1> study eligibility </h1>
         <p>
             To determine your eligibility, please answer the following prescreening questions:
@@ -61,60 +26,78 @@
         <ul>
             <li class="question">Are you over 18? - 
                 <div class="responses">
-                    <div class=""><input type="radio" name="over18" value="yes" ng-model="qualify.over18">yes <span class="glyphicon glyphicon-ok" ng-if="qualify.over18=='yes'"></span></div>
-                    <div class=""><input type="radio" name="over18" value="no" ng-model="qualify.over18">no <span class="glyphicon glyphicon-remove" ng-if="qualify.over18=='no'"></span></div>
+                    <div class=""><input type="radio" name="over18" value="yes" ng-model="qualify.over18"> - yes <span class="glyphicon glyphicon-ok" ng-if="qualify.over18=='yes'"></span></div>
+                    <div class=""><input type="radio" name="over18" value="no" ng-model="qualify.over18"> - no <span class="glyphicon glyphicon-remove" ng-if="qualify.over18=='no'"></span></div>
                 </div>
             </li>
             <li class="question">
                 Did you review &amp; understand the <a href="https://docs.google.com/document/d/1G42LS6STIY-4QuRcn8ZU-6vJbduqe_dVYvRU_cWjFfQ/pub" target="_blank">participant information sheet</a>?
                 <div class="responses">
-                    <div class=""><input type="radio" name="consent" value="yes" ng-model="qualify.consent">yes <span class="glyphicon glyphicon-ok" ng-if="qualify.consent=='yes'"></span></div>
-                    <div class=""><input type="radio" name="consent" value="no" ng-model="qualify.consent">no <span class="glyphicon glyphicon-remove" ng-if="qualify.consent=='no'"></span></div>
+                    <div class=""><input type="radio" name="consent" value="yes" ng-model="qualify.consent"> - yes <span class="glyphicon glyphicon-ok" ng-if="qualify.consent=='yes'"></span></div>
+                    <div class=""><input type="radio" name="consent" value="no" ng-model="qualify.consent"> - no <span class="glyphicon glyphicon-remove" ng-if="qualify.consent=='no'"></span></div>
                 </div>
             </li>
         </ul>
     </div>
-    <div ng-show='assessed && qualify_result'>
-        <h1>You qualify!</h1>
+</div>
+<div ng-show='true || assessed && qualify_result'>
+    <div class="row">
+        <h2>You qualify!</h2>
         <p>
-            To continue, please provide an email address that we can use to notify
-            you of your appointment time.  This e-mail address will be used 
-            only to inform you about your interview slot only and be destroyed
-            after the interview.  
+            To continue, answer the following questions:
         </p>
 
-       <h4>your email</h4>
-       <div>
-        <input id="email" name="email" type="email" ng-model="signup.email">
-        <div class="emailSuggestion" ng-if="signup.email.length > 0 && !emailValid"> That doesn't quite look like an e-mail address - try again? </div>
-       </div>
-
-       <h4>preferred interview location :</h4>
-       <ul>
-            <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="edinburgh">University of Edinburgh (Informatics)</li>
-            <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="oxford">University of Oxford (CS) (August 23-Sept 5 only)</li>
-            <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="skype">Skype/Web video chat</li>
-       </ul>
-
-       <h4>preferred interview date(s). (Please be as flexible as possible)</h4>
-        <div class="col-sm-4" ng-repeat='m in months'>
-            {{ m.name }}:
-            <li ng-repeat="d in m.dates"> 
-                <input name="dates" value="{{ d.toDateString() }}" type="checkbox" ng-model="signup.dates"><label>{{ d2str(d) }}</label>                         
-            </li>                        
+        <div class="question">
+            <h4>your email:</h4>
+            <p>
+                Your email will only be used to schedule your appointment and will kept separate from
+                your participant identifier to keep your data anonymous.  Your e-mail will be deleted
+                immediately after your interview.
+            </p>
+            <div>
+                <input id="email" name="email" type="text" ng-model="signup.email">
+                <div class="emailSuggestion" ng-if="signup.email.length > 0 && !emailValid"> That doesn't quite look like an e-mail address - try again? </div>
+            </div>
         </div>
-        
-        <div>
-            <div class="btn btn-default" ng-disabled="!valid || submitted" ng-click="submit()">Submit ></div>
+
+        <div class="question">
+            <h4>your preferred interview location:</h4>
+            <p>
+                Interviews can be conducted on site at the University of Oxford, or University of Edinburgh during 
+                dates depending on researcher availability, or more flexibly remotely via Skype/Web video chat and
+                should take around 30 mins to complete.
+            </p>
+            <ul>
+                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="edinburgh"> University of Edinburgh (Informatics)</li>
+                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="oxford"> University of Oxford (CS) (August 23-Sept 5 only)</li>
+                <li><input type="radio" name="interviewpref" ng-model='signup.interviewpref' value="skype"> Skype/Web video chat</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h4>your preferred interview date(s)</h4>
+            <h6>(please be as flexible as possible!)</h6>
+            <div class="col-sm-4" ng-repeat='m in months'>
+                {{ m.name }}:
+                <li ng-repeat="d in m.dates"> 
+                    <input name="dates" value="{{ d2val(d) }}" type="checkbox" ng-model="signup.dates[d2val(d)]"> - {{ d2str(d) }}                         
+                </li>                        
+            </div>    
+        </div>
+
+        <div class="question">
+            <button class="btn btn-default" ng-disabled="!valid || submitted" ng-click="submit()">Submit ></button>
             <div ng-if='submitError' ng-bind='submitError' class='bg-danger'></div>
         </div>
     </div>
-    <div ng-if='assessed && !qualify_result'>
-        <h1>Sorry, but thanks for your interest!</h1>
-        <p>
-            I'm sorry but we cannot select you for this study.
-            Please feel free to contact the researchers if you
-            have any questions.
-        </p>
-    </div>
+</div>
+
+<div ng-if='assessed && !qualify_result'>
+    <h1>Sorry, but thanks for your interest!</h1>
+    <p>
+        I'm sorry but we cannot select you for this study.
+        Please feel free to contact the researchers if you
+        have any questions.
+    </p>
+</div>
 </div>
