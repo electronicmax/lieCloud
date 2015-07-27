@@ -26,6 +26,7 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 			controller: function ($scope, $state, utils) {
 				var sa = function(fn) { if (window) { window.setTimeout(function() { $scope.$apply(fn); }, 0); } },
 					u = utils,
+					DATES_REQUIRED = 4,
 					genDates = function(year, mm) {
 						var d = new Date([year,mm,1].join('-')),
 							dates = [];
@@ -61,11 +62,14 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 
 				$scope.submit = function() {
 					$scope.submitted = true;
+					console.log('submitting ', $scope.signup);
 					$.ajax({method:'POST', url:'/api/new_user_reg', data:JSON.stringify($scope.signup), contentType:'application/json', processData:false}).then(function(x) {
+						console.log('got results ', x);
 						var results = JSON.parse(x);
 						console.log(results);
 						sa(function() { $state.go('questionnaire', { pid: results.pId }); });
 					}).fail(function(err) {
+						console.error(err);
 						sa(function() { 
 							$scope.submitted = false;
 							$scope.submitError = err; 
@@ -86,8 +90,13 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 					return $scope.emailValid = se.length > 3 && se.indexOf('@') > 0 && se.indexOf('.') > 0 && se.slice(se.lastIndexOf('.')+1).length >= 2;
 				}, validate = function() { 
 					var v = validateEmail() && $scope.signup.interviewpref !== undefined && $scope.signup.dates !== undefined;
-					console.info('valid? ', validateEmail(), $scope.signup.interviewpref, $scope.signup.dates, v);
-					return $scope.valid = v;
+					var n_trues = _($scope.signup.dates).pairs().filter(function(x) { console.log(' fair ', x); return x; }).length;
+					$scope.remainingDates = DATES_REQUIRED - n_trues;
+					$scope.valid = v && n_trues >= DATES_REQUIRED;
+
+					console.info('validating ', 'email - ', validateEmail(), $scope.signup.interviewpref !== undefined, $scope.signup.dates !== undefined, n_trues);
+
+					return $scope.valid;
 				};
 
 				$('#email').on('blur', validateEmail);
