@@ -77,7 +77,7 @@
 				</div>
 			</li>
 			<li class="question">
-				<div class="text">How much do you agree with the following statement about yourself: "I am an honest person"?</div>
+				<div class="text">How much do you agree with the following statement about yourself: "<b>I am an honest person</b>"?</div>
 				<div class="responses">
 					<div><input ng-model="responses.honest" type="radio" name="honest" value="disstrong"> Disagree strongly. </div>  				
 					<div><input ng-model="responses.honest" type="radio" name="honest" value="dis"> Disagree. </div>					
@@ -87,7 +87,7 @@
 				</div>
 			</li>
 			<li class="question">
-				<div class="text">How much do you agree with the following statement about yourself: "I am always honest online"?</div>
+				<div class="text">How much do you agree with the following statement about yourself: "<b>I am always honest online</b>"?</div>
 				<div class="responses">
 					<div><input ng-model="responses.honestonline" type="radio" name="honestonline" value="disstrong"> Disagree strongly. </div>  				
 					<div><input ng-model="responses.honestonline" type="radio" name="honestonline" value="dis"> Disagree. </div>					
@@ -97,7 +97,7 @@
 				</div>
 			</li>
 			<li class="question">
-				<div class="text">How much do you agree with the following statement: "I expect my friends to be honest online"?</div>
+				<div class="text">How much do you agree with the following statement: "<b>I expect my friends to be honest online</b>"?</div>
 				<div class="responses">
 					<div><input ng-model="responses.friendshonestonline" type="radio" name="friendshonestonline" value="disstrong"> Disagree strongly. </div>  				
 					<div><input ng-model="responses.friendshonestonline" type="radio" name="friendshonestonline" value="dis"> Disagree. </div>					
@@ -179,43 +179,23 @@
 				</div>     
 			</li>
 			<li class="question">
-				<div class="text">Do you use Facebook, and if so how much?</div>
+				<div class="text">Do you use social networking services (e.g. Twitter, Facebook, Tumblr, Google+, Foursquare, Ello) and if so how much?</div>
 				<div class="responses">
-					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="no"> No.</div>				
-					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="onceinawhile"> Once in a while.</div>  
-					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="fewtimesaweek"> A few times a week.</div>  
-					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="everyday"> Every day.</div>  
-					<div><input ng-model="responses.usefacebook" type="radio" name="usefacebook" value="severaladay"> Several times a day.</div>  
-				</div>     
-			</li>
-			<li class="question" ng-if="responses.usefacebook=='lots' || responses.usefacebook=='some'">
-				<div class="text">If you use Facebook, what porportion of your FB Status Updates are about something you're doing offline? (e.g. where you are, what activities you're doing, who you're with, etc?)</div>
-				<div class="responses">
-					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="none"> None.</div>  
-					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="some"> Yes, but rarely.</div>
-					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="half"> About half.</div>
-					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="most"> Most.</div>
-					<div><input ng-model="responses.fbstatusoffline" type="radio" name="fbstatusoffline" value="all"> All.</div>
+					<div><input ng-model="responses.usesns" type="radio" name="usesns" value="no"> No.</div>		
+					<div><input ng-model="responses.usesns" type="radio" name="usesns" value="onceinawhile"> Once in a while.</div>
+					<div><input ng-model="responses.usesns" type="radio" name="usesns" value="fewtimesaweek"> A few times a week.</div>
+					<div><input ng-model="responses.usesns" type="radio" name="usesns" value="everyday"> Every day.</div>
+					<div><input ng-model="responses.usesns" type="radio" name="usesns" value="severaladay"> Several times a day.</div>
 				</div>     
 			</li>
 			<li class="question">
-				<div class="text">Do you use Instagram, and if so how much?</div>
+				<div class="text">If you use social networking services, what porportion of your posts are about your offline activities - (e.g. where you are, what activities you're doing, who you're with, etc?)</div>
 				<div class="responses">
-					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="no"> No.</div>  
-					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="onceinawhile"> Once in a while.</div>  
-					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="fewtimesaweek"> A few times a week.</div>  
-					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="everyday"> Every day.</div>  
-					<div><input ng-model="responses.useinstagram" type="radio" name="useinstagram" value="severaladay"> Several times a day.</div>  
-				</div>     
-			</li>
-			<li class="question">
-				<div class="text">Do you use Foursquare, and if so how much?</div>
-				<div class="responses">
-					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="no"> No.</div>  
-					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="onceinawhile"> Once in a while.</div>  
-					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="fewtimesaweek"> A few times a week.</div>  
-					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="everyday"> Every day.</div>  
-					<div><input ng-model="responses.usefoursquare" type="radio" name="usefoursquare" value="severaladay"> Several times a day.</div>  
+					<div><input ng-model="responses.snsrealworld" type="radio" name="snsrealworld" value="none"> None.</div>  
+					<div><input ng-model="responses.snsrealworld" type="radio" name="snsrealworld" value="some"> Yes, but rarely.</div>
+					<div><input ng-model="responses.snsrealworld" type="radio" name="snsrealworld" value="half"> About half.</div>
+					<div><input ng-model="responses.snsrealworld" type="radio" name="snsrealworld" value="most"> Most.</div>
+					<div><input ng-model="responses.snsrealworld" type="radio" name="snsrealworld" value="all"> All.</div>
 				</div>     
 			</li>
 			<li class="question">
@@ -232,12 +212,10 @@
 					<div><input ng-model="responses.useqstools.msband" type="checkbox" name="useqstools"> A Microsoft Band </div>  
 				</div>
 			</li>
-
 			<li class="question">
 				<div class="text">Do you have any questions/comments about the above questions? Leave them below!</div>
 				<textarea ng-model="responses.comments"></textarea>
-			</li>			
-
+			</li>
 			<h4>That's it! Hit Send below to send off the questionnaire</h4>
 			<li>
 				<button class="btn btn-info" ng-click="submit()">Submit answers</button>
