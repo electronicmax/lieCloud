@@ -89,12 +89,14 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 					console.info($scope.signup.email, se.length > 3, se.indexOf('@') > 0, se.indexOf('.') > 0, se.slice(se.lastIndexOf('.')+1).length >= 2);
 					return $scope.emailValid = se.length > 3 && se.indexOf('@') > 0 && se.indexOf('.') > 0 && se.slice(se.lastIndexOf('.')+1).length >= 2;
 				}, validate = function() { 
-					var v = validateEmail() && $scope.signup.interviewpref !== undefined && $scope.signup.dates !== undefined;
-					var n_trues = _($scope.signup.dates).pairs().filter(function(x) { console.log(' fair ', x); return x; }).length;
-					$scope.remainingDates = DATES_REQUIRED - n_trues;
-					$scope.valid = v && n_trues >= DATES_REQUIRED;
+					var vE = $scope.validEmail = validateEmail(),
+						vP = $scope.validPref = $scope.signup.interviewpref !== undefined,
+						n_trues = ($scope.signup.dates !== undefined && _($scope.signup.dates).pairs().filter(function(x) { return x[1]; }).length) || 0,
+						rDates = $scope.remainingDates = DATES_REQUIRED - n_trues,
+						vD = $scope.validDates = rDates <= 0,
+						valid = $scope.valid = vE && vP && vD;
 
-					console.info('validating ', 'email - ', validateEmail(), $scope.signup.interviewpref !== undefined, $scope.signup.dates !== undefined, n_trues);
+					console.info('validating ', 'email - ', vE, vP, n_trues, vD, valid);
 
 					return $scope.valid;
 				};

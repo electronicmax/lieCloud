@@ -83,7 +83,6 @@
 
         <div class="question">
             <h4>your preferred interview date(s)</h4>
-            <h4 ng-if="remainingDates > 0">(please choose at least <span class="pink">{{ remainingDates }}</span> more dates!)</h4>
             <div class="dates" ng-repeat='m in months'>
                 {{ m.name }}:
                 <li ng-repeat="d in m.dates"> 
@@ -93,8 +92,17 @@
         </div>
 
     </div> <!-- lg -->
-    <div class="question col-lg-12">
-        <h4>press submit to get your participant ID</h4>
+    <div ng-if="!validEmail" class="bg-danger">
+        (please provide a valid email address above.)
+    </div>
+    <div ng-if="!validPref" class="bg-danger">
+        (please choose an interview location preference above.)
+    </div>
+    <div ng-if="remainingDates > 0" class="bg-danger">
+        (please choose at least <span class="pink">{{ remainingDates }}</span> more dates above.)
+    </div>
+    <div class="question">
+        <h4 ng-if="valid" class="bg-success">press submit to get your participant ID</h4>
         <button class="btn btn-default" ng-disabled="!valid || submitted" ng-click="submit()">Submit ></button>
         <div ng-if='submitError' ng-bind='submitError' class='bg-danger'></div>
     </div>
