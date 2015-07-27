@@ -102,7 +102,7 @@
         (please choose at least <span class="pink">{{ remainingDates }}</span> more dates above.)
     </div>
     <div class="question">
-        <h4 ng-if="valid" class="bg-success">press submit to get your participant ID</h4>
+        <h4 ng-if="valid" class="bg-success">Press Submit to continue &gt;</h4>
         <button class="btn btn-default" ng-disabled="!valid || submitted" ng-click="submit()">Submit ></button>
         <div ng-if='submitError' ng-bind='submitError' class='bg-danger'></div>
     </div>
