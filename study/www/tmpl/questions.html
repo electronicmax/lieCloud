@@ -77,25 +77,35 @@
 				</div>
 			</li>
 			<li class="question">
-				<div class="text">How much do you agree with the following statement about yourself: "I am an honest person online"?</div>
+				<div class="text">How much do you agree with the following statement about yourself: "I am an honest person"?</div>
+				<div class="responses">
+					<div><input ng-model="responses.honest" type="radio" name="honest" value="disstrong"> Disagree strongly. </div>  				
+					<div><input ng-model="responses.honest" type="radio" name="honest" value="dis"> Disagree. </div>					
+					<div><input ng-model="responses.honest" type="radio" name="honest" value="sometimes"> Sometimes. </div>  					
+					<div><input ng-model="responses.honest" type="radio" name="honest" value="agree"> Agree. </div>  
+					<div><input ng-model="responses.honest" type="radio" name="honest" value="agreestrong"> Agree strongly.</div>  
+				</div>
+			</li>
+			<li class="question">
+				<div class="text">How much do you agree with the following statement about yourself: "I am always honest online"?</div>
 				<div class="responses">
 					<div><input ng-model="responses.honestonline" type="radio" name="honestonline" value="disstrong"> Disagree strongly. </div>  				
 					<div><input ng-model="responses.honestonline" type="radio" name="honestonline" value="dis"> Disagree. </div>					
-					<div><input ng-model="responses.honestonline" type="radio" name="honestonline" value="sometimes"> Sometimes. </div>  					
+					<div><input ng-model="responses.honestonline" type="radio" name="honestonline" value="sometimes"> Sometimes. </div>  
 					<div><input ng-model="responses.honestonline" type="radio" name="honestonline" value="agree"> Agree. </div>  
 					<div><input ng-model="responses.honestonline" type="radio" name="honestonline" value="agreestrong"> Agree strongly.</div>  
 				</div>
 			</li>
 			<li class="question">
-				<div class="text">How much do you agree with the following statement about yourself: "I am an honest person in real life"?</div>
+				<div class="text">How much do you agree with the following statement: "I expect my friends to be honest online"?</div>
 				<div class="responses">
-					<div><input ng-model="responses.honestoffline" type="radio" name="honestoffline" value="disstrong"> Disagree strongly. </div>  				
-					<div><input ng-model="responses.honestoffline" type="radio" name="honestoffline" value="dis"> Disagree. </div>					
-					<div><input ng-model="responses.honestoffline" type="radio" name="honestoffline" value="sometimes"> Sometimes. </div>  
-					<div><input ng-model="responses.honestoffline" type="radio" name="honestoffline" value="agree"> Agree. </div>  
-					<div><input ng-model="responses.honestoffline" type="radio" name="honestoffline" value="agreestrong"> Agree strongly.</div>  
+					<div><input ng-model="responses.friendshonestonline" type="radio" name="friendshonestonline" value="disstrong"> Disagree strongly. </div>  				
+					<div><input ng-model="responses.friendshonestonline" type="radio" name="friendshonestonline" value="dis"> Disagree. </div>					
+					<div><input ng-model="responses.friendshonestonline" type="radio" name="friendshonestonline" value="sometimes"> Sometimes. </div>  
+					<div><input ng-model="responses.friendshonestonline" type="radio" name="friendshonestonline" value="agree"> Agree. </div>  
+					<div><input ng-model="responses.friendshonestonline" type="radio" name="friendshonestonline" value="agreestrong"> Agree strongly.</div>  
 				</div>
-			</li>
+			</li>			
 			<li class="question" ng-if='!responses.employment || responses.employment=="fulltime" || responses.employment=="parttime" || responses.employment=="freelance"'>
 				<div class="text">Do you keep your work/personal life separate online?</div>
 				<div class="responses">
