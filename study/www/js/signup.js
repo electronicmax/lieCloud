@@ -110,7 +110,7 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 		}).state('questionnaire', {
 			url:'/questions?pid',
 			templateUrl:'tmpl/questions.html',
-			controller:function($scope, $state, $stateParams, utils) {
+			controller:function($scope, $state, $stateParams, $timeout, utils) {
 				var sa = function(fn) { if (window) { window.setTimeout(function() { $scope.$apply(fn); }, 0); } },
 					u = utils,
 					pId = $scope.pId = $stateParams.pid;
@@ -136,7 +136,11 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 							$scope.error = err.message || err.statusText; 
 						});
 					});
-				}
+				};
+
+				$timeout(function() {
+					$('html, body').animate({scrollTop:$("#qtop").offset().top});
+				}, 500);
 			}
 		}).state('thankyou', {
 			url:'/thankyou?pid&email',

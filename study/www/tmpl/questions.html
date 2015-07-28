@@ -1,5 +1,5 @@
 <div>
-	<div>
+	<div id="qtop">
 		<h2>Online Questionnaire</h2>
 
 		<p> 
@@ -39,13 +39,13 @@
 			<li class="question">
 				<div class="text">What is your current employment status?</div>
 				<div class="responses">
-					<div><input ng-model="responses.employment" type="radio" name="employment" value="fulltime"> full-time employed</div>  
-					<div><input ng-model="responses.employment" type="radio" name="employment" value="parttime"> part-time employed</div>
-					<div><input ng-model="responses.employment" type="radio" name="employment" value="student"> student</div>
-					<div><input ng-model="responses.employment" type="radio" name="employment" value="freelance"> freelance</div>
-					<div><input ng-model="responses.employment" type="radio" name="employment" value="retired"> retired</div>
-					<div><input ng-model="responses.employment" type="radio" name="employment" value="unemployed"> unemployed</div>
-					<div><input ng-model="responses.employment" type="radio" name="employment" value="other"> other</div>
+					<div><input ng-model="responses.employment.fulltime" type="checkbox" name="employment"> full-time employed</div>  
+					<div><input ng-model="responses.employment.parttime" type="checkbox" name="employment"> part-time employed</div>
+					<div><input ng-model="responses.employment.student" type="checkbox" name="employment"> student</div>
+					<div><input ng-model="responses.employment.freelance" type="checkbox" name="employment"> freelance</div>
+					<div><input ng-model="responses.employment.retired" type="checkbox" name="employment"> retired</div>
+					<div><input ng-model="responses.employment.unemployed" type="checkbox" name="employment"> unemployed</div>
+					<div><input ng-model="responses.employment.other" type="checkbox" name="employment"> other</div>
 				</div>
 			</li>
 			<li class="question" ng-if='!responses.employment || responses.employment=="fulltime" || responses.employment=="parttime" || responses.employment=="freelance"'>
@@ -160,24 +160,6 @@
 					<div><input ng-model="responses.busyonlinesocial" type="radio" name="busyonlinesocial" value="variable"> Variable/bursty.</div>                
 				</div>     
 			</li>        
-			<li class="question">
-				<div class="text">How much do you use Twitter?</div>
-				<div class="responses">
-					<div><input ng-model="responses.usetwitter" type="radio" name="usetwitter" value="no"> No.</div>
-					<div><input ng-model="responses.usetwitter" type="radio" name="usetwitter" value="some"> Occasionally.</div>
-					<div><input ng-model="responses.usetwitter" type="radio" name="usetwitter" value="lots"> Yes, often.</div>                
-				</div>     
-			</li>
-			<li class="question" ng-if="responses.usetwitter=='lots' || responses.usetwitter=='some'">
-				<div class="text">If you use Twitter, what porportion of what you Tweet is about something you're doing offline? (e.g. where you are, what activities you're doing, who you're with, etc?)</div>
-				<div class="responses">
-					<div><input ng-model="responses.tweetoffline" type="radio" name="tweetoffline" value="none"> None.</div>  
-					<div><input ng-model="responses.tweetoffline" type="radio" name="tweetoffline" value="some"> Yes, but rarely.</div>
-					<div><input ng-model="responses.tweetoffline" type="radio" name="tweetoffline" value="half"> About 50%</div>
-					<div><input ng-model="responses.tweetoffline" type="radio" name="tweetoffline" value="most"> Most</div>
-					<div><input ng-model="responses.tweetoffline" type="radio" name="tweetoffline" value="all"> All</div>
-				</div>     
-			</li>
 			<li class="question">
 				<div class="text">Do you use social networking services (e.g. Twitter, Facebook, Tumblr, Google+, Foursquare, Ello) and if so how much?</div>
 				<div class="responses">
