@@ -26,7 +26,7 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 			controller: function ($scope, $state, utils) {
 				var sa = function(fn) { if (window) { window.setTimeout(function() { $scope.$apply(fn); }, 0); } },
 					u = utils,
-					DATES_REQUIRED = 4,
+					DATES_REQUIRED = 1,
 					genDates = function(year, mm) {
 						var d = new Date([year,mm,1].join('-')),
 							dates = [];
