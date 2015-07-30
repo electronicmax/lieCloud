@@ -46,13 +46,13 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 					signup_guid : utils.guid()
 				};
 				$scope.months = [
-					{ name:'july', dates: [new Date('2015-07-01'), new Date('2015-07-29'),new Date('2015-07-30'),new Date('2015-07-21')]},
-					{ name:'august', dates: genDates(2015, 8)}
+					{ name:'july', dates: [new Date('2015-07-01'), new Date('2015-07-29'),new Date('2015-07-30'),new Date('2015-07-31')]},
+					{ name:'august', dates: [new Date('2015-08-01')].concat(genDates(2015, 8).slice(0,3))}
 					// { name:'september', dates: u.range(1,11).map(function(x) { return new Date('2015-09-'+x);}) }
 				];
 				$scope.months = $scope.months.map(function(dates) { 
 					console.log(dates.dates);
-					dates.dates=dates.dates.filter(function(x) { return x.valueOf() > new Date().valueOf() + 24*60*60*1000; });
+					dates.dates=dates.dates.filter(function(x) { return x.valueOf() > new Date().valueOf(); });
 					if (dates.dates.length > 0)  { return dates; }
 				}).filter(function(x) { return x; });
 				$scope.dow = function(x) { return u.DOW_FULL[x.getDay()]; };
