@@ -77,7 +77,7 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 			templateUrl:'tmpl/sorry.html'
 		}).state('thanks', {
 			url:'/thanks',
-			templateUrl:'tmpl/thanks.html'
+			templateUrl:'tmpl/thanks-probes.html'
 		});
 	}).controller('probes', function($scope, $state, probes) {
 		console.info('probes', probes);

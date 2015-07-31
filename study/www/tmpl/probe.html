@@ -1,0 +1,9 @@
+<div>
+	<h2>{{probe.id}} - {{probe.title}}</h2>
+	<div class="description" ng-bind-html="probe.description"></div>
+	<img class="probeimg" src="{{probe.href}}">
+	<div class="buttons">
+		<button ng-if="probeIndx > 0" class="btn btn-default" ng-click="prev()"> &lt; Prev</button>	
+		<button ng-if="true || probeIndx < probes.length - 1" class="btn btn-default" ng-click="next()"> Next &gt; </button>
+	</div>			
+</div>
