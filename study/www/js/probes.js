@@ -22,7 +22,7 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 		{
 			id:'2',
 			title:'lieCal',
-			href:'probes/lieCal.png',
+			href:'probes/liecal.png',
 			description:'lieCal is a fictional shared calendaring application for your workplace.  It integrates with your regular work calendar and lets you fill in days with that you want to have free to yourself with fake (but realistic) meetings, based on your past history.'
 		},
 		{
@@ -33,7 +33,7 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 		},
 		{
 			id:'4',
-			href:'probes/lieMoves.png',
+			href:'probes/liemoves.png',
 			title:'location sharing with falsification',
 			description:'lieMoves is a social location sharing application for your mobile phone that lets you broadcast your location. But you can also tell it to falsify your tracks for some time if you like - by mimicing your past, impersonating others such as friends, or by engaging in activities that give of impressions of your choice.'
 		},
