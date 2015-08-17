@@ -14,7 +14,7 @@ body, html {
 
 .c { 
 	position:relative;
-	width:750px;
+	max-width:750px;
 	background-color:white;
 	margin-left:auto; margin-right:auto;
 	padding:30px 50px;
@@ -28,6 +28,8 @@ body, html {
 .lie { 
 	font-family: cursive; 
 	font-style:italic;
+	line-height:1.4em;
+
 }
 .maintitle {
 	.line1 { font-size:36pt; }
@@ -54,6 +56,13 @@ body, html {
 	position:absolute;
 	width:100%;
 	top:0px; left:0px; right:0px; 
+	height:330px;
+	background: url("../img/screen.jpg") no-repeat top left fixed; 
+	// -webkit-background-size: cover;
+	// -moz-background-size: cover;
+	// -o-background-size: cover;
+	background-size: contain;
+
 }
 li { 
 	margin-left:0px;
@@ -93,7 +102,8 @@ p {
 
 .dates {
 	display:inline-block;
-	width:32%;
+	// width:32%;
+	width:100%;
 	vertical-align:top;
 }
 .pink {
