@@ -27,16 +27,17 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 				var sa = function(fn) { if (window) { window.setTimeout(function() { $scope.$apply(fn); }, 0); } },
 					u = utils,
 					DATES_REQUIRED = 1,
+					pad = function(x) { return (x < 10 ? '0':'')+x; }, 
 					genDates = function(year, mm) {
-						var d = new Date([year,mm,1].join('-')),
-							dates = [];
-						while (d.getMonth() + 1 == mm) { 
-							if (d.getDay() > 0 && d.getDay() < 6) { 
-								dates.push(d);
-							}
-							d = u.daysOffset(d,1);
-						}
-						return dates;
+					        var d = new Date([year,mm,1].map(pad).join('-')),
+					                dates = [];
+					        while (d.getMonth() + 1 == mm) {
+					                if (d.getDay() > 0 && d.getDay() < 6) {
+					                        dates.push(d);
+					                }
+					                d = u.daysOffset(d,1);
+					        }
+					        return dates;
 					};
 
 				$scope.qualify = {};		
@@ -93,7 +94,7 @@ angular.module('liecloud', ['lifecourse', 'ui.router'])
 					var se = $scope.signup.email || '';
 					se = se.trim();
 					console.info($scope.signup.email, se.length > 3, se.indexOf('@') > 0, se.indexOf('.') > 0, se.slice(se.lastIndexOf('.')+1).length >= 2);
-					return $scope.emailValid = se.length > 3 && se.indexOf('@') > 0 && se.indexOf('.') > 0 && se.slice(se.lastIndexOf('.')+1).length >= 2;
+					return ($scope.emailValid = se.length > 3 && se.indexOf('@') > 0 && se.indexOf('.') > 0 && se.slice(se.lastIndexOf('.')+1).length >= 2);
 				}, validate = function() { 
 					var vE = $scope.validEmail = validateEmail(),
 						vP = $scope.validPref = $scope.signup.interviewpref !== undefined,
